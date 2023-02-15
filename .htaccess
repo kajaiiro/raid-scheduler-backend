@@ -1,6 +1,11 @@
+# Turn on mod_rewrite module, allow URL rewriting
 RewriteEngine On
 
-# Handle Front Controller...
+# If requested URL does not correspond existing 
+# directory, next rewrite rule is applied
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
+# Rule to match URL pattern, beginning of the URL
+# Redirect request to index.php
 RewriteRule ^ index.php [L]
+
