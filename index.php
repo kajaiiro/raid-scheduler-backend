@@ -39,12 +39,12 @@ switch($method) {
     case "POST":
         // create a new event record with data from the request body
         $event = json_decode( file_get_contents('php://input') );
-        $sql = "INSERT INTO events(id, name, email, mobile, created_at) VALUES(null, :name, :email, :mobile, :created_at)";
+        $sql = "INSERT INTO events(id, `group`, date, status, created_at) VALUES(null, :group, :date, :status, :created_at)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
-        $stmt->bindParam(':name', $event->name);
-        $stmt->bindParam(':email', $event->email);
-        $stmt->bindParam(':mobile', $event->mobile);
+        $stmt->bindParam(':group', $event->group);
+        $stmt->bindParam(':date', $event->date);
+        $stmt->bindParam(':status', $event->status);
         $stmt->bindParam(':created_at', $created_at);
 
         // check if the event record was successfully created and output response accordingly
@@ -59,13 +59,13 @@ switch($method) {
     case "PUT":
         // update an existing event record with data from the request body
         $event = json_decode( file_get_contents('php://input') );
-        $sql = "UPDATE events SET name= :name, email =:email, mobile =:mobile, updated_at =:updated_at WHERE id = :id";
+        $sql = "UPDATE events SET group= :group, date =:date, status =:status, updated_at =:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
         $stmt->bindParam(':id', $event->id);
-        $stmt->bindParam(':name', $event->name);
-        $stmt->bindParam(':email', $event->email);
-        $stmt->bindParam(':mobile', $event->mobile);
+        $stmt->bindParam(':group', $event->group);
+        $stmt->bindParam(':date', $event->date);
+        $stmt->bindParam(':status', $event->status);
         $stmt->bindParam(':updated_at', $updated_at);
     
         if($stmt->execute()) {
