@@ -59,7 +59,7 @@ switch($method) {
     case "PUT":
         // update an existing event record with data from the request body
         $event = json_decode( file_get_contents('php://input') );
-        $sql = "UPDATE events SET group= :group, date =:date, status =:status, updated_at =:updated_at WHERE id = :id";
+        $sql = "UPDATE events SET `group`= :group, date =:date, status =:status, updated_at =:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
         $stmt->bindParam(':id', $event->id);
